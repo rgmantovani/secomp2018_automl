@@ -19,17 +19,19 @@ lrns = list(
 )
 
 ### 10-fold cross validation
-rdesc = makeResampleDesc("CV", iters = 10)
+rdesc = makeResampleDesc("CV", iters = 10, stratify=TRUE)
 me = list(acc, bac)
 bmr = benchmark(lrns, task, rdesc, me, show.info = TRUE)
 print(bmr)
+cat("--------------------------------------------------------\n\n")
 
-img = plotBMRBoxplots(bmr, measure = bac, style = "violin", pretty.names = FALSE, 
-  order.lrn = getBMRLearnerIds(bmr)) +
-  aes(color = learner.id) +
-  theme(strip.text.x = element_text(size = 8))
-img
-
+rank_box = plotBMRBoxplots(bmr, measure = bac, style = "violin",
+                           pretty.names = FALSE, 
+                           order.lrn = getBMRLearnerIds(bmr)) +
+                           aes(color = learner.id) +
+                           theme(strip.text.x = element_text(size = 8))
+print(rank_box)
+readline(prompt="Press enter: ")
 
 
 ######################################
@@ -58,15 +60,16 @@ lrns = list(
 )
 
 ### 10-fold cross validation
-rdesc = makeResampleDesc("CV", iters = 10)
+rdesc = makeResampleDesc("CV", iters = 10, stratify=TRUE)
 me = list(acc, bac)
 bmr = benchmark(lrns, tasks, rdesc, me, show.info = TRUE)
 print(bmr)
+cat("--------------------------------------------------------\n\n")
 
-img = plotBMRBoxplots(bmr, measure = bac, style = "violin", pretty.names = FALSE, 
-  order.lrn = getBMRLearnerIds(bmr)) +
-  aes(color = learner.id) +
-  theme(strip.text.x = element_text(size = 8))
-img
-
-
+rank_box = plotBMRBoxplots(bmr, measure = bac, style = "violin",
+                           pretty.names = FALSE, 
+                           order.lrn = getBMRLearnerIds(bmr)) +
+                           aes(color = learner.id) +
+                           theme(strip.text.x = element_text(size = 8))
+print(rank_box)
+readline(prompt="Press enter: ")
