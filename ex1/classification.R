@@ -2,19 +2,41 @@ library(OpenML)
 library(mlr)
 
 # List OpenML data sets.
+cat("OpenML datasets: ...\n")
 list_datasets = listOMLDataSets()
 print(head(list_datasets))
+cat("\n\n")
 
 # Get a dataset
 # more information https://www.openml.org/search?q=cancer&type=data
-data_obj = getOMLDataSet(data.id=15)
+data_obj = getOMLDataSet(data.id=61)
 dataset = data_obj$data
 
 # dataset exploration
+cat("Dataset Exploration: ...\n")
 dimension = dim(dataset)
 cat("lin=",dimension[1]," col=", dimension[2], "\n")
 summary(dataset)
-barplot(table(dataset$Class))
+barplot(table(dataset$class))
+cat("\n\n")
 
 # classification
+task = makeClassifTask(data = dataset, target = "class")
+cat("Classification Task: ...\n")
+print(task)
+cat("\n\n")
+
+# Classification algorithm
+classif.rf = makeLearner("classif.randomForest")
+
+### Holdout estimation
+rdesc = makeResampleDesc("Holdout", split = 2/3)
+
+### Calculate the performance
+r = resample(learner=classif.rf, task=task, resampling=rdesc,
+             measures=list(acc, bac), show.info = TRUE)
+
+pred = getRRPredictions(r)
+print(pred)
+
 
