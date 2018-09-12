@@ -25,3 +25,6 @@ install.packages('parallelMap')
 
 # feature selection
 install.packages("FSelector")
+
+# mlrMBO
+install.packages("mlrMBO")
