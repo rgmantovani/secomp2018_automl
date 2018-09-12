@@ -22,3 +22,6 @@ install.packages('PMCMR')
 
 # parallel processing
 install.packages('parallelMap')
+
+# feature selection
+install.packages("FSelector")
