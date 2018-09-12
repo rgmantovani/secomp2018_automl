@@ -19,3 +19,6 @@ install.packages('ggplot2')
 
 #CD
 install.packages('PMCMR')
+
+# parallel processing
+install.packages('parallelMap')
