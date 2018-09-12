@@ -1,6 +1,7 @@
 library(OpenML)
 library(mlr)
 library(ggplot2)
+library(PMCMR)
 
 # Get a dataset
 # more information https://www.openml.org/search?q=cancer&type=data
@@ -12,8 +13,8 @@ task = makeClassifTask(data = dataset, target = "class")
 
 # Create a list of learners
 lrns = list(
-  makeLearner("classif.lda", id = "knn"),
-  makeLearner("classif.lda", id = "svm"),
+  makeLearner("classif.lda", id = "lda"),
+  makeLearner("classif.svm", id = "svm"),
   makeLearner("classif.rpart", id = "rpart"),
   makeLearner("classif.randomForest", id = "randomForest")
 )
@@ -26,7 +27,7 @@ print(bmr)
 cat("--------------------------------------------------------\n\n")
 
 rank_box = plotBMRBoxplots(bmr, measure = bac, style = "violin",
-                           pretty.names = FALSE, 
+                           # pretty.names = FALSE, 
                            order.lrn = getBMRLearnerIds(bmr)) +
                            aes(color = learner.id) +
                            theme(strip.text.x = element_text(size = 8))
@@ -53,8 +54,8 @@ tasks = list(task1, task2, task3, task4)
 
 # Create a list of learners
 lrns = list(
-  makeLearner("classif.lda", id = "knn"),
-  makeLearner("classif.lda", id = "svm"),
+  makeLearner("classif.lda", id = "lda"),
+  makeLearner("classif.svm", id = "svm"),
   makeLearner("classif.rpart", id = "rpart"),
   makeLearner("classif.randomForest", id = "randomForest")
 )
@@ -72,4 +73,15 @@ rank_box = plotBMRBoxplots(bmr, measure = bac, style = "violin",
                            aes(color = learner.id) +
                            theme(strip.text.x = element_text(size = 8))
 print(rank_box)
+readline(prompt="Press enter: ")
+
+### Nemenyi test
+g = generateCritDifferencesData(bmr, p.value = 0.1, test = "nemenyi")
+cd = plotCritDifferences(g) +
+    coord_cartesian(xlim = c(-1,5), ylim = c(0,2)) +
+    scale_colour_manual(values = c("lda" = "#F8766D",
+                                   "svm" = "#00BA38",
+                                   "rpart" = "#619CFF",
+                                   "randomForest" = "#8B008B"))
+print(cd)
 readline(prompt="Press enter: ")
