@@ -13,3 +13,9 @@ if (DEV){
 # OpenML installation
 install.packages("OpenML")
 install.packages("farff")
+
+# plot
+install.packages('ggplot2')
+
+#CD
+install.packages('PMCMR')
