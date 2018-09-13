@@ -9,7 +9,7 @@ library(mlr)
 set.seed(123, "L'Ecuyer")
 
 # Create a task
-data = getOMLDataSet(data.id=54)$data
+data = getOMLDataSet(data.id = 54)$data
 task = makeClassifTask(data = data, target = "Class")
 
 # Create a search space
@@ -25,26 +25,26 @@ ps = makeParamSet(
 print(ps)
 cat("------------------------------------------------------------\n\n")
 
-### Random search with 100 iterations
+### Random search with 50 iterations
 ctrl = makeTuneControlRandom(maxit = 50L)
 
-# 3-fold vc
-rdesc = makeResampleDesc("CV", iters = 10L, stratify=TRUE)
+# 10-fold CV
+rdesc = makeResampleDesc("CV", iters = 10L, stratify = TRUE)
 
-# metric
+# metric balance error rate 
 me = ber
 
 # Performing the tuning
 res = tuneParams("classif.randomForest", task = task, resampling = rdesc,
-                 par.set = ps, measure=me, control = ctrl)
+                 par.set = ps, measure = me, control = ctrl)
 print(res)
 cat("------------------------------------------------------------\n\n")
 
 # Stopped parallelization. All cleaned up.
 # parallelStop()
 
-res_data = generateHyperParsEffectData(res, partial.dep=TRUE)
+res_data = generateHyperParsEffectData(res, partial.dep = TRUE)
 res_plt = plotHyperParsEffect(res_data, x = "iteration", y = "ber.test.mean",
                               plot.type = "line",
-                              partial.dep.learn='regr.randomForest')
+                              partial.dep.learn = 'regr.randomForest')
 print(res_plt)
