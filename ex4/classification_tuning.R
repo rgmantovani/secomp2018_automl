@@ -1,6 +1,6 @@
 library(OpenML)
 library(mlr)
-library(parallelMap)
+# library(parallelMap)
 
 # Starting parallelization in mode=socket with cpus=2.
 # parallelStartSocket(8)
