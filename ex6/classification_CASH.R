@@ -6,7 +6,7 @@ set.seed(123, "L'Ecuyer")
 
 # List of all the available base learners
 base.learners = list(
-  makeLearner("classif.ksvm"),
+  makeLearner("classif.svm"),
   makeLearner("classif.randomForest"),
   makeLearner("classif.knn"),
   makeLearner("classif.naiveBayes"),
@@ -19,8 +19,8 @@ lrn = makeModelMultiplexer(base.learners)
 
 # Defines the hyperparameter space considering options from different base learners
 ps = makeModelMultiplexerParamSet(lrn,
-  makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x),
-  makeIntegerParam("ntree", lower = 1L, upper = 500L),
+  makeNumericParam(id = "gamma", lower = -12, upper = 12, trafo = function(x) 2^x),
+  makeIntegerParam(id = "ntree", lower = 1L, upper = 500L),
   makeIntegerParam(id = "nodesize", lower = 1, upper = 20),
   makeIntegerParam(id = "k", lower = 1, upper = 50, default = 7),
   makeIntegerParam(id = "M", default = 2L, lower = 1L, upper = 50L),
