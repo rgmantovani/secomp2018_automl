@@ -28,3 +28,6 @@ install.packages("FSelector")
 
 # mlrMBO
 install.packages("mlrMBO")
+
+# emoa
+install.packages("emoa")
