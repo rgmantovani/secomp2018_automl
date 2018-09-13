@@ -32,7 +32,7 @@ ctrl = makeTuneControlRandom(maxit = 50L)
 rdesc = makeResampleDesc("CV", iters = 10L, stratify=TRUE)
 
 # metric
-me = bac
+me = ber
 
 # Performing the tuning
 res = tuneParams("classif.randomForest", task = task, resampling = rdesc,
