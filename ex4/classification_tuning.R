@@ -44,7 +44,7 @@ cat("------------------------------------------------------------\n\n")
 # parallelStop()
 
 res_data = generateHyperParsEffectData(res, partial.dep=TRUE)
-res_plt = plotHyperParsEffect(res_data, x = "iteration", y = "bac.test.mean",
+res_plt = plotHyperParsEffect(res_data, x = "iteration", y = "ber.test.mean",
                               plot.type = "line",
                               partial.dep.learn='regr.randomForest')
 print(res_plt)
